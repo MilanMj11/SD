@@ -9,6 +9,8 @@ const int NMAX = 1005;
 const int INF = (1<<29);
 int a[NMAX],n;
 
+
+///____________________________________________
 void concat(int a[],int st,int dr){
     int b[NMAX],c[NMAX];
     int mij=(st+dr)/2;
@@ -44,13 +46,39 @@ void merge_sort(int a[],int st,int dr){
     merge_sort(a,mij+1,dr);
     concat(a,st,dr);
 }
+///____________________________________________
+
+///____________________________________________
+int partitie(int a[],int low,int high){
+    int pivot = a[high];
+    int i = low-1;
+    for(int j=low;j<high;j++){
+        if(a[j] < pivot){
+            i++;
+            swap(a[i],a[j]);
+        }
+    }
+    swap(a[i+1],a[high]);
+    return i+1;
+}
+
+void quicksort(int a[],int low,int high){
+    if(low < high){
+        int mij = partitie(a,low,high);
+        quicksort(a,low,mij-1);
+        quicksort(a,mij+1,high);
+    }
+}
+///______________________________________________
+
 
 int main() {
     fin >> n;
     for(int i=1;i<=n;i++){
         fin >> a[i];
     }
-    merge_sort(a,1,n);
+    ///merge_sort(a,1,n);
+    quicksort(a,1,n);
     for(int i=1;i<=n;i++){
         fout << a[i] << ' ';
     }
