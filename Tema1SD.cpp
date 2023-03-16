@@ -5,9 +5,10 @@ using namespace std;
 ifstream fin("input.txt");
 ofstream fout("output.txt");
 
-const int NMAX = 1005;
+const int NMAX = (1<<17)+1;
 const int INF = (1<<29);
 int a[NMAX],n;
+vector<int> bucket[NMAX];
 
 
 ///____________________________________________
@@ -71,6 +72,46 @@ void quicksort(int a[],int low,int high){
 }
 ///______________________________________________
 
+///_____________________________________________
+void RadixSort(int a[],int base){
+    long long p = 1;
+    long long maxim = 0;
+    for(int i=1;i<=n;i++){
+        if (a[i]>maxim) maxim=a[i];
+    }
+    memset(bucket,0,sizeof(bucket));
+    while(p<=maxim){
+        for(int i=1;i<=n;i++){
+            int cifra = (a[i] / p) % base;
+            bucket[cifra].insert(bucket[cifra].begin(),a[i]);
+        }
+        int ind = 0;
+        for(int i=0;i<base;i++){
+            while(bucket[i].size()!=0){
+                a[++ind]=bucket[i].back();
+                bucket[i].pop_back();
+            }
+        }
+        p*=base;
+    }
+}
+///______________________________________________
+
+///______________________________________________
+void InsertionSort(int a[]){
+    int key=0;
+    for(int i=1;i<=n;i++){
+        key = a[i];
+        for(int j=i-1;j>=1;j--){
+            if(key < a[j]) {
+                swap(a[j],a[j+1]);
+                key = a[j];
+            }
+            else break;
+        }
+    }
+}
+///______________________________________________
 
 int main() {
     fin >> n;
@@ -78,7 +119,9 @@ int main() {
         fin >> a[i];
     }
     ///merge_sort(a,1,n);
-    quicksort(a,1,n);
+    ///quicksort(a,1,n);
+    ///RadixSort(a,(1<<16));
+    ///InsertionSort(a);
     for(int i=1;i<=n;i++){
         fout << a[i] << ' ';
     }
