@@ -113,6 +113,20 @@ void InsertionSort(int a[]){
 }
 ///______________________________________________
 
+void ShellSort(int a[],int n){
+    for(int gap = n/2; gap >= 1; gap /= 2){
+        for(int i = gap; i < n; i++){
+            int nr = a[i];
+            int ind = i;
+            while(ind >= gap and a[ind-gap] > nr){
+                a[ind] = a[ind-gap];
+                ind -= gap;
+            }
+            a[ind] = nr;
+        }
+    }
+}
+
 int main() {
     fin >> n;
     for(int i=1;i<=n;i++){
@@ -122,6 +136,7 @@ int main() {
     ///quicksort(a,1,n);
     ///RadixSort(a,(1<<16));
     ///InsertionSort(a);
+    ///ShellSort(a,n);
     for(int i=1;i<=n;i++){
         fout << a[i] << ' ';
     }
