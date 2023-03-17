@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include <chrono>
 
 using namespace std;
+using namespace chrono;
 
 ifstream fin("input.txt");
 ofstream fout("output.txt");
@@ -127,18 +129,27 @@ void ShellSort(int a[],int n){
     }
 }
 
+void Calculate_MergeSort_Time(int a[]){
+    auto start = high_resolution_clock::now();
+    merge_sort(a,1,n);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop-start);
+    fout << duration.count() << " microseconds" << '\n';
+}
+
 int main() {
     fin >> n;
     for(int i=1;i<=n;i++){
         fin >> a[i];
     }
+    Calculate_MergeSort_Time(a);
     ///merge_sort(a,1,n);
     ///quicksort(a,1,n);
     ///RadixSort(a,(1<<16));
     ///InsertionSort(a);
     ///ShellSort(a,n);
-    for(int i=1;i<=n;i++){
+    /*for(int i=1;i<=n;i++){
         fout << a[i] << ' ';
-    }
+    }*/
     return 0;
 }
