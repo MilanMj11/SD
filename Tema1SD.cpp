@@ -86,7 +86,7 @@ void RadixSort(int a[],int n,int base){
     for(int i=1;i<=n;i++){
         if (a[i]>maxim) maxim=a[i];
     }
-    memset(bucket,0,sizeof(bucket));
+    //memset(bucket,0,sizeof(bucket));
     while(p<=maxim){
         for(int i=1;i<=n;i++){
             int cifra = (a[i] / p) % base;
@@ -94,9 +94,9 @@ void RadixSort(int a[],int n,int base){
         }
         int ind = 0;
         for(int i=0;i<base;i++){
-            while(bucket[i].size()!=0){
-                a[++ind]=bucket[i].begin();
-                bucket[i].erase(pop_back();
+            while(!bucket[i].empty()){
+                a[++ind] = *(bucket[i].begin());
+                bucket[i].erase(bucket[i].begin());
             }
         }
         p*=base;
@@ -250,7 +250,7 @@ int main() {
     fout << time_heap << '\n';
     ///merge_sort(a,1,n);
     ///quicksort(a,1,n);
-    ///RadixSort(a,n,(1<<16));
+    ///RadixSort(a,n,(10));
     ///InsertionSort(a,n);
     ///ShellSort(a,n);
     ///HeapSort(a,n);
