@@ -225,6 +225,16 @@ long long Calculate_HeapSort_Time(long long a[],long long n){
     return duration.count();
 }
 
+long long Calculate_STDSort_Time(long long a[],long long n){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
+    auto start = high_resolution_clock::now();
+    sort(a+1,a+n+1);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop-start);
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
+    return duration.count();
+}
+
 long long Randomize() {
     long long randnumber = 0;
     int digits[20];
@@ -255,12 +265,13 @@ void generate_input(long long n,long long maxim){
 //    long long time_insertion = Calculate_InsertionSort_Time(a,n);
     long long time_shell = Calculate_ShellSort_Time(a,n);
     long long time_heap = Calculate_HeapSort_Time(a,n);
+    long long time_std = Calculate_STDSort_Time(a,n);
     fout << "Merge Sort execution time is : " << time_merge << " microseconds" <<'\n';
-    fout << time_quick << '\n';
-    fout << time_radix << '\n';
-//    fout << time_insertion << '\n';
-    fout << time_shell << '\n';
-    fout << time_heap << '\n';
+    fout << "Quick Sort execution time is : " << time_quick << " microseconds" <<'\n';
+    fout << "Radix Sort execution time is : " << time_radix << " microseconds" <<'\n';
+    fout << "Shell Sort execution time is : " << time_shell << " microseconds" <<'\n';
+    fout << "Heap Sort execution time is : " << time_heap << " microseconds" <<'\n';
+    fout << "STD Sort execution time is : " << time_std << " microseconds" << '\n';
 }
 
 void citire(){
@@ -275,13 +286,11 @@ void citire(){
 
 int main() {
     citire();
-
     ///merge_sort(a,1,n);
     ///quicksort(a,1,n);
     ///RadixSort(a,n,(10));
     ///InsertionSort(a,n);
     ///Shelong longSort(a,n);
     ///HeapSort(a,n);
-
     return 0;
 }
