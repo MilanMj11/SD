@@ -7,28 +7,28 @@ using namespace chrono;
 ifstream fin("input.txt");
 ofstream fout("output.txt");
 
-const int NMAX = (1<<17)+1;
-const int INF = (1<<29);
-int a[NMAX],n;
-list<int> bucket[NMAX];
+const long long NMAX = 100000005; /// maxim 10^8 + 5
+const long long INF = (1<<29);
+long long a[NMAX],aux[NMAX];
+list<long long> bucket[(1<<16)+5];
 
 
 ///____________________________________________
-void concat(int a[],int st,int dr){
-    int mij = (st+dr)/2;
-    int dim1 = mij-st+1;
-    int dim2 = dr-mij;
+void concat(long long a[],long long st,long long dr){
+    long long mij = (st+dr)/2;
+    long long dim1 = mij-st+1;
+    long long dim2 = dr-mij;
 
-    int *b = new int[dim1+5];
-    int *c = new int[dim2+5];
+    long long *b = new long long[dim1+5];
+    long long *c = new long long[dim2+5];
 
-    int k=0;
-    for(int i=st;i<=mij;i++) b[++k] = a[i];
+    long long k=0;
+    for(long long i=st;i<=mij;i++) b[++k] = a[i];
     b[++k]=INF;
     k=0;
-    for(int i=mij+1;i<=dr;i++) c[++k] = a[i];
+    for(long long i=mij+1;i<=dr;i++) c[++k] = a[i];
     c[++k]=INF;
-    int ind1=1,ind2=1;
+    long long ind1=1,ind2=1;
     k=st-1;
     while(true){
         if(b[ind1]==INF and c[ind2]==INF) break;
@@ -47,9 +47,9 @@ void concat(int a[],int st,int dr){
     delete[] c;
 }
 
-void merge_sort(int a[],int st,int dr){
+void merge_sort(long long a[],long long st,long long dr){
     if(st>=dr) return;
-    int mij=(st+dr)/2;
+    long long mij=(st+dr)/2;
     merge_sort(a,st,mij);
     merge_sort(a,mij+1,dr);
     concat(a,st,dr);
@@ -57,10 +57,10 @@ void merge_sort(int a[],int st,int dr){
 ///____________________________________________
 
 ///____________________________________________
-int partitie(int a[],int low,int high){
-    int pivot = a[high];
-    int i = low-1;
-    for(int j=low;j<high;j++){
+long long partitie(long long a[],long long low,long long high){
+    long long pivot = a[high];
+    long long i = low-1;
+    for(long long j=low;j<high;j++){
         if(a[j] < pivot){
             i++;
             swap(a[i],a[j]);
@@ -70,9 +70,9 @@ int partitie(int a[],int low,int high){
     return i+1;
 }
 
-void quicksort(int a[],int low,int high){
+void quicksort(long long a[],long long low,long long high){
     if(low < high){
-        int mij = partitie(a,low,high);
+        long long mij = partitie(a,low,high);
         quicksort(a,low,mij-1);
         quicksort(a,mij+1,high);
     }
@@ -80,20 +80,20 @@ void quicksort(int a[],int low,int high){
 ///______________________________________________
 
 ///_____________________________________________
-void RadixSort(int a[],int n,int base){
+void RadixSort(long long a[],long long n,long long base){
     long long p = 1;
     long long maxim = 0;
-    for(int i=1;i<=n;i++){
+    for(long long i=1;i<=n;i++){
         if (a[i]>maxim) maxim=a[i];
     }
     //memset(bucket,0,sizeof(bucket));
     while(p<=maxim){
-        for(int i=1;i<=n;i++){
-            int cifra = (a[i] / p) % base;
+        for(long long i=1;i<=n;i++){
+            long long cifra = (a[i] / p) % base;
             bucket[cifra].push_back(a[i]);
         }
-        int ind = 0;
-        for(int i=0;i<base;i++){
+        long long ind = 0;
+        for(long long i=0;i<base;i++){
             while(!bucket[i].empty()){
                 a[++ind] = *(bucket[i].begin());
                 bucket[i].erase(bucket[i].begin());
@@ -105,11 +105,11 @@ void RadixSort(int a[],int n,int base){
 ///______________________________________________
 
 ///______________________________________________
-void InsertionSort(int a[],int n){
-    int key=0;
-    for(int i=1;i<=n;i++){
+void InsertionSort(long long a[],long long n){
+    long long key=0;
+    for(long long i=1;i<=n;i++){
         key = a[i];
-        for(int j=i-1;j>=1;j--){
+        for(long long j=i-1;j>=1;j--){
             if(key < a[j]) {
                 swap(a[j],a[j+1]);
                 key = a[j];
@@ -121,11 +121,11 @@ void InsertionSort(int a[],int n){
 ///______________________________________________
 
 ///______________________________________________
-void ShellSort(int a[],int n){
-    for(int gap = n/2; gap >= 1; gap /= 2){
-        for(int i = gap; i < n; i++){
-            int nr = a[i];
-            int ind = i;
+void ShellSort(long long a[],long long n){
+    for(long long gap = n/2; gap >= 1; gap /= 2){
+        for(long long i = gap; i < n; i++){
+            long long nr = a[i];
+            long long ind = i;
             while(ind >= gap and a[ind-gap] > nr){
                 a[ind] = a[ind-gap];
                 ind -= gap;
@@ -138,11 +138,11 @@ void ShellSort(int a[],int n){
 
 
 ///______________________________________________
-void heapify_arb(int a[],int n,int node){
+void heapify_arb(long long a[],long long n,long long node){
     if(n==0) return; /// masura precautie
-    int maxim = node;
-    int st = 2*node;
-    int dr = 2*node+1;
+    long long maxim = node;
+    long long st = 2*node;
+    long long dr = 2*node+1;
     if(st <= n and a[st] > a[maxim])
         maxim = st;
     if(dr <= n and a[dr] > a[maxim])
@@ -153,10 +153,10 @@ void heapify_arb(int a[],int n,int node){
     }
 }
 
-void HeapSort(int a[],int n){
-    for(int i=n/2;i>=1;i--) /// construiesc max-heapul
+void HeapSort(long long a[],long long n){
+    for(long long i=n/2;i>=1;i--) /// construiesc max-heapul
         heapify_arb(a,n,i);
-    for(int i=n;i>=1;i--){
+    for(long long i=n;i>=1;i--){
         swap(a[1],a[i]); /// pun maximul in capat
         /// maximul fiind mereu varful arborelui adica a[1];
         heapify_arb(a,i-1,1); /// get rid of last element
@@ -165,98 +165,123 @@ void HeapSort(int a[],int n){
 }
 ///______________________________________________
 
-long long Calculate_MergeSort_Time(int a[],int n){
-    int aux[NMAX];
-    for(int i=1;i<=n;i++) aux[i] = a[i];
+long long Calculate_MergeSort_Time(long long a[],long long n){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
     auto start = high_resolution_clock::now();
     merge_sort(a,1,n);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    for(int i=1;i<=n;i++) a[i] = aux[i];
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
     return duration.count();
 }
 
-long long Calculate_QuickSort_Time(int a[],int n){
-    int aux[NMAX];
-    for(int i=1;i<=n;i++) aux[i] = a[i];
+long long Calculate_QuickSort_Time(long long a[],long long n){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
     auto start = high_resolution_clock::now();
     quicksort(a,1,n);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    for(int i=1;i<=n;i++) a[i] = aux[i];
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
     return duration.count();
 }
 
-long long Calculate_Radix_Time(int a[],int n,int base){
-    int aux[NMAX];
-    for(int i=1;i<=n;i++) aux[i] = a[i];
+long long Calculate_Radix_Time(long long a[],long long n,long long base){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
     auto start = high_resolution_clock::now();
     RadixSort(a,n,base);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    for(int i=1;i<=n;i++) a[i] = aux[i];
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
     return duration.count();
 }
 
-long long Calculate_InsertionSort_Time(int a[],int n){
-    int aux[NMAX];
-    for(int i=1;i<=n;i++) aux[i] = a[i];
+long long Calculate_InsertionSort_Time(long long a[],long long n){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
     auto start = high_resolution_clock::now();
     InsertionSort(a,n);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    for(int i=1;i<=n;i++) a[i] = aux[i];
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
     return duration.count();
 }
 
-long long Calculate_ShellSort_Time(int a[],int n){
-    int aux[NMAX];
-    for(int i=1;i<=n;i++) aux[i] = a[i];
+long long Calculate_ShellSort_Time(long long a[],long long n){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
     auto start = high_resolution_clock::now();
     ShellSort(a,n);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    for(int i=1;i<=n;i++) a[i] = aux[i];
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
     return duration.count();
 }
 
-long long Calculate_HeapSort_Time(int a[],int n){
-    int aux[NMAX];
-    for(int i=1;i<=n;i++) aux[i] = a[i];
+long long Calculate_HeapSort_Time(long long a[],long long n){
+    for(long long i=1;i<=n;i++) aux[i] = a[i];
     auto start = high_resolution_clock::now();
     HeapSort(a,n);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    for(int i=1;i<=n;i++) a[i] = aux[i];
+    for(long long i=1;i<=n;i++) a[i] = aux[i];
     return duration.count();
 }
 
-int main() {
-    fin >> n;
-    for(int i=1;i<=n;i++){
-        fin >> a[i];
+long long Randomize() {
+    long long randnumber = 0;
+    int digits[20];
+    for (int i=18;i>=1;i--){
+        digits[i]=rand()%10;
+    }
+    for(int i=18; i>=1; i--){
+        long long power = pow(10, i-1);
+        if (power%2 != 0 && power != 1)
+            power++;
+        randnumber += power * digits[i];
+    }
+    return randnumber;
+}
+
+void generate_input(long long n,long long maxim){
+    fout << "N = " << n << ' ' << "Max = " << maxim << '\n';
+    if(n > 100000003){
+        fout << "Cannot Sort" << '\n';
+        return;
+    }
+    for(long long i=1;i<=n;i++) {
+        a[i] = Randomize() % maxim;
     }
     long long time_merge = Calculate_MergeSort_Time(a,n);
     long long time_quick = Calculate_QuickSort_Time(a,n);
     long long time_radix = Calculate_Radix_Time(a,n,(1<<16));
-    long long time_insertion = Calculate_InsertionSort_Time(a,n);
+//    long long time_insertion = Calculate_InsertionSort_Time(a,n);
     long long time_shell = Calculate_ShellSort_Time(a,n);
     long long time_heap = Calculate_HeapSort_Time(a,n);
-    fout << time_merge << '\n';
+    fout << "Merge Sort execution time is : " << time_merge << " microseconds" <<'\n';
     fout << time_quick << '\n';
     fout << time_radix << '\n';
-    fout << time_insertion << '\n';
+//    fout << time_insertion << '\n';
     fout << time_shell << '\n';
     fout << time_heap << '\n';
+}
+
+void citire(){
+    long long T,n,maxim;
+    fin >> T;
+    for(long long t=1;t<=T;t++){
+        fin >> n >> maxim;
+        generate_input(n,maxim);
+    }
+
+}
+
+int main() {
+    citire();
+
     ///merge_sort(a,1,n);
     ///quicksort(a,1,n);
     ///RadixSort(a,n,(10));
     ///InsertionSort(a,n);
-    ///ShellSort(a,n);
+    ///Shelong longSort(a,n);
     ///HeapSort(a,n);
 
-    for(int i=1;i<=n;i++){
-        fout << a[i] << ' ';
-    }
     return 0;
 }
