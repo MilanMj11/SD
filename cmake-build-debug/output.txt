@@ -1,42 +1,49 @@
-N = 100 Max = 540
-Merge Sort execution time is : 40 microseconds
+N = 100 Max = 100
+Merge Sort execution time is : 43 microseconds
 Quick Sort execution time is : 6 microseconds
-Radix Sort execution time is : 362 microseconds
+Radix Sort execution time is : 411 microseconds
 Shell Sort execution time is : 5 microseconds
-Heap Sort execution time is : 10 microseconds
+Heap Sort execution time is : 9 microseconds
 STD Sort execution time is : 7 microseconds
+N = 100 Max = 540
+Merge Sort execution time is : 34 microseconds
+Quick Sort execution time is : 6 microseconds
+Radix Sort execution time is : 310 microseconds
+Shell Sort execution time is : 5 microseconds
+Heap Sort execution time is : 9 microseconds
+STD Sort execution time is : 6 microseconds
 N = 1000 Max = 1000000
-Merge Sort execution time is : 464 microseconds
-Quick Sort execution time is : 89 microseconds
-Radix Sort execution time is : 909 microseconds
-Shell Sort execution time is : 94 microseconds
-Heap Sort execution time is : 142 microseconds
+Merge Sort execution time is : 382 microseconds
+Quick Sort execution time is : 91 microseconds
+Radix Sort execution time is : 1001 microseconds
+Shell Sort execution time is : 117 microseconds
+Heap Sort execution time is : 141 microseconds
 STD Sort execution time is : 88 microseconds
 N = 1000000 Max = 1000
-Merge Sort execution time is : 396124 microseconds
-Quick Sort execution time is : 1250094 microseconds
-Radix Sort execution time is : 239593 microseconds
-Shell Sort execution time is : 220762 microseconds
-Heap Sort execution time is : 318318 microseconds
-STD Sort execution time is : 124409 microseconds
+Merge Sort execution time is : 282153 microseconds
+Quick Sort execution time is : 1047729 microseconds
+Radix Sort execution time is : 206123 microseconds
+Shell Sort execution time is : 212256 microseconds
+Heap Sort execution time is : 350941 microseconds
+STD Sort execution time is : 125644 microseconds
 N = 1000 Max = 100000000
-Merge Sort execution time is : 226 microseconds
-Quick Sort execution time is : 87 microseconds
-Radix Sort execution time is : 808 microseconds
-Shell Sort execution time is : 92 microseconds
-Heap Sort execution time is : 157 microseconds
-STD Sort execution time is : 85 microseconds
+Merge Sort execution time is : 223 microseconds
+Quick Sort execution time is : 85 microseconds
+Radix Sort execution time is : 785 microseconds
+Shell Sort execution time is : 89 microseconds
+Heap Sort execution time is : 137 microseconds
+STD Sort execution time is : 86 microseconds
 N = 10000 Max = 1000000
-Merge Sort execution time is : 2612 microseconds
-Quick Sort execution time is : 1185 microseconds
-Radix Sort execution time is : 4015 microseconds
-Shell Sort execution time is : 1378 microseconds
-Heap Sort execution time is : 1856 microseconds
-STD Sort execution time is : 1085 microseconds
+Merge Sort execution time is : 2749 microseconds
+Quick Sort execution time is : 1173 microseconds
+Radix Sort execution time is : 4099 microseconds
+Shell Sort execution time is : 1371 microseconds
+Heap Sort execution time is : 1855 microseconds
+STD Sort execution time is : 1069 microseconds
 N = 100000 Max = 10000000
-Merge Sort execution time is : 27691 microseconds
-Quick Sort execution time is : 14639 microseconds
-Radix Sort execution time is : 36906 microseconds
-Shell Sort execution time is : 19933 microseconds
-Heap Sort execution time is : 25680 microseconds
-STD Sort execution time is : 13587 microseconds
+Merge Sort execution time is : 28472 microseconds
+Quick Sort execution time is : 14380 microseconds
+Radix Sort execution time is : 36519 microseconds
+Shell Sort execution time is : 19963 microseconds
+Heap Sort execution time is : 24909 microseconds
+STD Sort execution time is : 13307 microseconds
