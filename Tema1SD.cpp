@@ -129,6 +129,32 @@ void ShellSort(int a[],int n){
     }
 }
 
+void heapify_arb(int a[],int n,int node){
+    if(n==0) return; /// masura precautie
+    int maxim = node;
+    int st = 2*node;
+    int dr = 2*node+1;
+    if(st <= n and a[st] > a[maxim])
+        maxim = st;
+    if(dr <= n and a[dr] > a[maxim])
+        maxim = dr;
+    if(node != maxim) { /// root not the biggest
+        swap(a[node],a[maxim]);
+        heapify_arb(a,n,maxim);
+    }
+}
+
+void HeapSort(int a[],int n){
+    for(int i=n/2;i>=1;i--) /// construiesc max-heapul
+        heapify_arb(a,n,i);
+    for(int i=n;i>=1;i--){
+        swap(a[1],a[i]); /// pun maximul in capat
+        /// maximul fiind mereu varful arborelui adica a[1];
+        heapify_arb(a,i-1,1); /// get rid of last element
+        /// e deja fixat
+    }
+}
+
 void Calculate_MergeSort_Time(int a[]){
     auto start = high_resolution_clock::now();
     merge_sort(a,1,n);
@@ -142,14 +168,15 @@ int main() {
     for(int i=1;i<=n;i++){
         fin >> a[i];
     }
-    Calculate_MergeSort_Time(a);
+    ///Calculate_MergeSort_Time(a);
     ///merge_sort(a,1,n);
     ///quicksort(a,1,n);
     ///RadixSort(a,(1<<16));
     ///InsertionSort(a);
     ///ShellSort(a,n);
-    /*for(int i=1;i<=n;i++){
+    ///HeapSort(a,n);
+    for(int i=1;i<=n;i++){
         fout << a[i] << ' ';
-    }*/
+    }
     return 0;
 }
